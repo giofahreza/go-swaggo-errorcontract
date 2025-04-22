@@ -1,5 +1,12 @@
 basePath: /
 definitions:
+  main.ErrorResponse:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    type: object
   main.User:
     properties:
       id:
@@ -17,15 +24,15 @@ definitions:
 host: localhost:8080
 info:
   contact: {}
-  description: This is a sample server for demonstrating Swagger with Echo.
-  title: Echo Swagger Example API
+  description: Sample API with JSON, form-data, Swagger, Logrus, and centralized error
+    handling
+  title: Echo Swagger Full Example API
   version: "1.0"
 paths:
   /submit-form:
     post:
       consumes:
       - multipart/form-data
-      description: Submit name and age via form-data (multipart)
       parameters:
       - description: User name
         in: formData
@@ -44,6 +51,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/main.UserForm'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
       summary: Submit user via form-data
       tags:
       - form
@@ -58,6 +69,10 @@ paths:
             items:
               $ref: '#/definitions/main.User'
             type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
       summary: Get all users
       tags:
       - users
@@ -78,6 +93,10 @@ paths:
           description: Created
           schema:
             $ref: '#/definitions/main.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
       summary: Create a new user
       tags:
       - users

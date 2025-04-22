@@ -5,6 +5,8 @@ go-swaggo-errorcontract/
 
 go mod init go-swaggo-errorcontract
 go get github.com/labstack/echo/v4
+go get github.com/labstack/echo/v4/middleware
+go get github.com/sirupsen/logrus
 go get github.com/swaggo/echo-swagger
 go get github.com/sirupsen/logrus
 go install github.com/swaggo/swag/cmd/swag@latest

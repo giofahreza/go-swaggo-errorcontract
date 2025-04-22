@@ -17,7 +17,6 @@ const docTemplate = `{
     "paths": {
         "/submit-form": {
             "post": {
-                "description": "Submit name and age via form-data (multipart)",
                 "consumes": [
                     "multipart/form-data"
                 ],
@@ -50,6 +49,12 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/main.UserForm"
                         }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/main.ErrorResponse"
+                        }
                     }
                 }
             }
@@ -71,6 +76,12 @@ const docTemplate = `{
                             "items": {
                                 "$ref": "#/definitions/main.User"
                             }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/main.ErrorResponse"
                         }
                     }
                 }
@@ -103,12 +114,29 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/main.User"
                         }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/main.ErrorResponse"
+                        }
                     }
                 }
             }
         }
     },
     "definitions": {
+        "main.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
         "main.User": {
             "type": "object",
             "properties": {
@@ -140,8 +168,8 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "localhost:8080",
 	BasePath:         "/",
 	Schemes:          []string{},
-	Title:            "Echo Swagger Example API",
-	Description:      "This is a sample server for demonstrating Swagger with Echo.",
+	Title:            "Echo Swagger Full Example API",
+	Description:      "Sample API with JSON, form-data, Swagger, Logrus, and centralized error handling",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",
