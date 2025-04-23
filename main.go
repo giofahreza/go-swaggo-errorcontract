@@ -5,6 +5,7 @@ import (
 
 	_ "go-swaggo-errorcontract/docs"
 	"go-swaggo-errorcontract/handlers"
+	"go-swaggo-errorcontract/handlers/middleware"
 	"go-swaggo-errorcontract/models"
 
 	"github.com/labstack/echo/v4"
@@ -53,6 +54,7 @@ func main() {
 	e.Use(mw.LoggerWithConfig(mw.LoggerConfig{
 		Output: log.Writer(),
 	}))
+	e.Use(middleware.AuthenticationMiddleware())
 
 	// Routes
 	e.GET("/", func(c echo.Context) error {
